@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Côte d'Azur Explorer</title>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <script type="module" crossorigin src="/cotedazur/dist/assets/index-DSPRWVoi.js"></script>
+    <link rel="stylesheet" crossorigin href="/cotedazur/dist/assets/index-1dRHWCdl.css">
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h1>Côte d'<span class="highlight">Azur</span></h1>
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <a href="routes-optimizer.html" title="Optimisation multi-routes" style="
+            padding: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background 0.2s;
+          " onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="8"></circle>
+              <path d="M12 2v7.5l5.2 2"></path>
+            </svg>
+          </a>
+          <button class="sidebar-toggle-close" id="sidebar-toggle-close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="sidebar-content">
+        <!-- Cities Navigation -->
+        <div class="filter-section">
+          <div class="filter-grid">
+            <button class="filter-btn" data-city="nice">
+              <!-- Sun icon for Nice -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+              <span>Nice</span>
+            </button>
+            <button class="filter-btn" data-city="cannes">
+              <!-- Film icon for Cannes -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+                <line x1="7" y1="2" x2="7" y2="22"></line>
+                <line x1="17" y1="2" x2="17" y2="22"></line>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <line x1="2" y1="7" x2="7" y2="7"></line>
+                <line x1="2" y1="17" x2="7" y2="17"></line>
+                <line x1="17" y1="17" x2="22" y2="17"></line>
+                <line x1="17" y1="7" x2="22" y2="7"></line>
+              </svg>
+              <span>Cannes</span>
+            </button>
+            <button class="filter-btn" data-city="monaco">
+              <!-- Crown icon for Monaco -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                 <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"></path>
+              </svg>
+              <span>Monaco</span>
+            </button>
+            <button class="filter-btn" data-city="saint-tropez">
+              <!-- Anchor icon for Saint-Tropez -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="5" r="3"></circle>
+                <line x1="12" y1="22" x2="12" y2="8"></line>
+                <path d="M5 12H2a10 10 0 0 0 20 0h-3"></path>
+              </svg>
+              <span>St-Tropez</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Camera Mode Toggle -->
+        <div class="filter-section">
+          <label class="toggle-control">
+            <input type="checkbox" id="camera-mode-toggle" checked>
+            <span class="toggle-label">Mode Suivi</span>
+            <div class="toggle-switch"></div>
+          </label>
+        </div>
+
+        <!-- Routes Section -->
+        <div class="section">
+          <h3 class="section-title">Itinéraires</h3>
+          <div class="route-list">
+            <button class="route-item" id="route-nice-monaco">
+              <div class="route-info">
+                <div class="route-name">Nice → Monaco</div>
+                <div class="route-meta">Côte panoramique • ~20 km</div>
+              </div>
+              <div class="route-arrow">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </div>
+            </button>
+            <button class="route-item" id="route-cannes-tropez">
+              <div class="route-info">
+                <div class="route-name">Cannes → Saint-Tropez</div>
+                <div class="route-meta">Route des plages • ~65 km</div>
+              </div>
+              <div class="route-arrow">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </div>
+            </button>
+            <button class="route-item" id="route-coastal">
+              <div class="route-info">
+                <div class="route-name">Parcours Côtier</div>
+                <div class="route-meta">Découverte complète • ~100 km</div>
+              </div>
+              <div class="route-arrow">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </div>
+            </button>
+            <button class="clear-btn" id="clear-route">
+              Effacer l'itinéraire
+            </button>
+          </div>
+        </div>
+
+      <!-- Stats -->
+      <div class="stats-panel">
+        <div class="stat-item">
+          <div class="stat-label">Altitude</div>
+          <div class="stat-value" id="elevation">--</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Distance</div>
+          <div class="stat-value" id="distance">--</div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Open button (visible when sidebar is closed) -->
+    <button class="sidebar-toggle-open" id="sidebar-toggle-open">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 18l6-6-6-6" />
+      </svg>
+    </button>
+
+  </body>
+</html>
