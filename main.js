@@ -84,11 +84,11 @@ const routes = {
   },
   coastal: {
     coordinates: [
-      [7.4246, 43.7384], // Monaco
-      [7.2619, 43.7102], // Nice
-      [7.0167, 43.5528], // Cannes
-      [6.937, 43.5282], // Théoule
-      [6.6407, 43.2677], // Saint-Tropez
+      [7.1954, 43.6558], // Baie des Anges
+      [7.2634, 43.6974], // Promenade du Paillon
+      [7.2758, 43.6959], // Colline du château
+      [7.2952, 43.6865], // Cap de Nice
+      [7.3057, 43.6985], // Parc du Mt Boron
     ],
     color: "#34c759",
     name: "Parcours Côtier Complet",
@@ -259,11 +259,11 @@ class PremiumMapbox {
       });
 
     document.getElementById("route-coastal").addEventListener("click", () => {
-      this.drawAnimatedRoute("coastal");
+      this.drawAnimatedRoute("coastal", "walking");
     });
 
     document.getElementById("route-riquierCathedral").addEventListener("click", () => {
-      this.drawAnimatedRoute("riquierCathedral");
+      this.drawAnimatedRoute("riquierCathedral", "walking");
     });
 
     document.getElementById("clear-route").addEventListener("click", () => {
@@ -318,7 +318,7 @@ class PremiumMapbox {
     }
   }
 
-  async drawAnimatedRoute(routeKey) {
+  async drawAnimatedRoute(routeKey, mode = "driving") {
     const route = routes[routeKey];
     if (!route) return;
 
@@ -332,7 +332,7 @@ class PremiumMapbox {
     try {
       // Call Mapbox Directions API for real routing
       const response = await fetch(
-        `https://api.mapbox.com/directions/v5/mapbox/driving/${coordsString}?geometries=geojson&overview=full&steps=true&access_token=${mapboxgl.accessToken}`
+        `https://api.mapbox.com/directions/v5/mapbox/${mode}/${coordsString}?geometries=geojson&overview=full&steps=true&access_token=${mapboxgl.accessToken}`
       );
 
       const data = await response.json();
@@ -678,6 +678,7 @@ class PremiumMapbox {
 
     // Query terrain elevation
     const elevation = this.map.queryTerrainElevation(lngLat);
+    
     if (elevation !== null) {
       document.getElementById("elevation").textContent = `${Math.round(
         elevation
