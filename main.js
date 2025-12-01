@@ -84,11 +84,11 @@ const routes = {
   },
   coastal: {
     coordinates: [
-      [7.1954, 43.6558], // Baie des Anges
       [7.2634, 43.6974], // Promenade du Paillon
       [7.2758, 43.6959], // Colline du château
+      [7.2837, 43.6967], // Port Lympia
+      [7.2968, 43.6965], // Parc du Mt Boron
       [7.2952, 43.6865], // Cap de Nice
-      [7.3057, 43.6985], // Parc du Mt Boron
     ],
     color: "#34c759",
     name: "Parcours Côtier Complet",
