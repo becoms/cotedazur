@@ -93,14 +93,13 @@ const routes = {
     color: "#34c759",
     name: "Parcours Côtier Complet",
   },
-  chagalCathedral: {
+  riquierCathedral: {
     coordinates: [
-      [7.2538, 43.7040], // Riquier
-      [7.2713, 43.7094], // Musée M. Chagall
-      [7.2901, 43.7061], // Cathédrale St-Nicolas
+      [7.2901, 43.7061], // Riquier
+      [7.2538, 43.7040], // Cathédrale St-Nicolas
     ],
     color: "#34c759",
-    name: "Riquier - Musée M. Chagall - Cath. St-Nicolas",
+    name: "Riquier - Cath. St-Nicolas",
   },
 };
 
@@ -263,8 +262,8 @@ class PremiumMapbox {
       this.drawAnimatedRoute("coastal");
     });
 
-    document.getElementById("route-chagalCathedral").addEventListener("click", () => {
-      this.drawAnimatedRoute("chagalCathedral");
+    document.getElementById("route-riquierCathedral").addEventListener("click", () => {
+      this.drawAnimatedRoute("riquierCathedral");
     });
 
     document.getElementById("clear-route").addEventListener("click", () => {
