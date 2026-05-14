@@ -4,13 +4,12 @@ import {
   APIProvider,
   Map3D,
   Map3DCameraChangedEvent,
-  MapMouseEvent
 } from '@vis.gl/react-google-maps';
 import ControlPanel from '@/components/google-maps/control-panel';
-import {MiniMap} from '@/components/google-maps/minimap';
 
 import './style.css';
 import { Map3DCameraProps } from '@/types/google-maps-3d-camera-props';
+import { Chat } from '@/components/chat/Chat';
 
 const INITIAL_VIEW_PROPS: Map3DCameraProps = {
   center: {lat: 43.69717100763474, lng: 7.25658566601723, altitude: 300},
@@ -27,13 +26,6 @@ const Map3DExample = () => {
     setViewProps(oldProps => ({...oldProps, ...ev.detail}));
   }, []);
 
-  const handleMapClick = useCallback((ev: MapMouseEvent) => {
-    if (!ev.detail.latLng) return;
-
-    const {lat, lng} = ev.detail.latLng;
-    setViewProps(p => ({...p, center: {lat, lng, altitude: 0}}));
-  }, []);
-
   return (
     <>
       <Map3D
@@ -44,7 +36,7 @@ const Map3DExample = () => {
         style={{width: '100vw', height: '100vh'}}
       />
 
-      <MiniMap camera3dProps={viewProps} onMapClick={handleMapClick} />
+      <Chat isOpen={true} handleClose={() => {}} />
     </>
   );
 };
