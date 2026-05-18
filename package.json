@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:digitalOcean": "yarn install && yarn build",
+    "build:digitalOcean": "npm install && npm run build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
